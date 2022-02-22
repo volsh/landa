@@ -13,8 +13,7 @@ import Block from "../Block/Block";
 const size = 4;
 const initialNumber = 2;
 const initialArr = new Array(size * size).fill(0);
-insertItemInRandomPosition(initialArr, initialNumber);
-insertItemInRandomPosition(initialArr, initialNumber);
+insertItemInRandomPosition(initialArr, initialNumber, 2);
 
 const Puzzle = () => {
   const [blocks, setBlocks] = useState(initialArr);
