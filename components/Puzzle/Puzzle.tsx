@@ -13,7 +13,8 @@ import Block from "../Block/Block";
 const size = 4;
 const initialNumber = 2;
 const initialArr = new Array(size * size).fill(0);
-insertItemInRandomPosition(initialArr, initialNumber, 2);
+insertItemInRandomPosition(initialArr, initialNumber);
+insertItemInRandomPosition(initialArr, initialNumber);
 
 const Puzzle = () => {
   const [blocks, setBlocks] = useState(initialArr);
@@ -27,7 +28,12 @@ const Puzzle = () => {
   }, []);
 
   useEffect(() => {
-    const isComplete = blocks.every((value) => value > 0);
+    const isComplete = blocks.every(
+      (value, i) =>
+        value > 0 &&
+        !((i + 1) % size > 0 && blocks[i + 1] == value) &&
+        !(i < size * size - size && blocks[i + size] == value)
+    );
     setIsComplete(isComplete);
   }, [blocks]);
 
@@ -38,7 +44,6 @@ const Puzzle = () => {
 
   const getBlockAfterMove = (blocksClone: Array<number>, which: number) => {
     let k, current;
-
     switch (which) {
       case 37: //left
         for (let i = 0; i < blocksClone.length; i += size) {
